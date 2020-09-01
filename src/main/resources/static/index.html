@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Busca Cep</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-resource.js"></script>
+    <style>
+        .header {
+            border: 0px solid #000000;
+            margin: 0.3125em 0.3125em 0.3125em 0.3125em;
+            background-color: #66ffc2;
+            height: 40px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+<div class="header"></div>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div class="container">
+        <h1 class="text-center">Busca Cep</h1>
+        <div class="row">
+            <div class="form-group col-xs-3 col-md-3 col-sm-3 col-lg-3">
+                <labe for="cepInput">CEP:</labe>
+                <input type="text" class="form-control" id="cepInput" ng-model="filter.cep"
+                       maxlength="25" placeholder="Ex: 99999999" ng-disabled="filter.forgotCep" />
+                <small id="hintCep" class="form-text text-muted">
+                    Informe somente números.
+                </small>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="forgotCep" ng-model="filter.forgotCep">
+                <label class="form-check-label" for="forgotCep">Esqueceu o cep?</label>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-default" ng-click="buscaPorFiltros()">Enviar</button>
+        </div>
+        <div class="row" ng-show="filter.forgotCep">
+            <div class="form-group">
+                <label for="uf">UF:</label>
+                <select id="uf">
+                    <option>ES</option>
+                    <option>SP</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>cep</th>
+                        <th>logradouro</th>
+                        <th>complemento</th>
+                        <th>bairro</th>
+                        <th>localidade</th>
+                        <th>uf</th>
+                        <th>ibge</th>
+                        <th>gia</th>
+                        <th>ddd</th>
+                        <th>siafi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    var myApp = angular.module('myApp', ['ngResource']);
+
+    myApp.controller('myCtrl', ['$scope', 'MyAppFactory', function($scope, MyAppFactory){
+        $scope.filter = {
+            cep: null,
+            forgotCep: false
+        }
+
+        $scope.buscaPorFiltros = function() {
+            var cep = $scope.filter.cep;
+            MyAppFactory.get({cep: $scope.filter.cep})
+            .$promise.then(function(result) {
+                var teste = result;
+            });
+        };
+    }]);
+
+    myApp.factory('MyAppFactory', ['$resource', function($resource) {
+            return $resource('/apirest/:verb', {}, {
+                get: {
+                    method: 'GET',
+                    params: {verb: 'cep'}
+                }
+            });
+    }]);
+
+    myApp.config(['$resourceProvider', function($resourceProvider) {
+        $resourceProvider.defaults.stripTrailingSlashes = false;
+    }]);
+</script>
+</body>
+</html>
