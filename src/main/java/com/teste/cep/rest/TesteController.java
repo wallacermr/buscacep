@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/teste")
 public class TesteController {
 
     private CepClient cepClient;
@@ -22,8 +22,8 @@ public class TesteController {
         this.cepRepository = cepRepository;
     }
 
-    @GetMapping(path = "/cep/{cep}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public CepDTO getCep(@PathVariable("cep") String cepId) {
+    @GetMapping(path = "/cep/{cepId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public CepDTO getCep(@PathVariable("cepId") String cepId) {
         Cep resultado = cepRepository.findByCep(cepId);
         if(resultado == null) {
             Cep cep = cepClient.getCep(cepId);
@@ -31,6 +31,5 @@ public class TesteController {
             return Converter.CepEntityParaDTO(entity);
         }
         return Converter.CepEntityParaDTO(resultado);
-        //teste
     }
 }
