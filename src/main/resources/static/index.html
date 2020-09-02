@@ -67,7 +67,15 @@
                 </thead>
                 <tbody>
                     <tr>
-
+                        <td>{{info.cep}}</td>
+                        <td>{{info.logradouro}}</td>
+                        <td>{{info.complemento}}</td>
+                        <td>{{info.bairro}}</td>
+                        <td>{{info.localidade}}</td>
+                        <td>{{info.uf}}</td>
+                        <td>{{info.ibge}}</td>
+                        <td>{{info.gia}}</td>
+                        <td>{{info.ddd}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -87,8 +95,8 @@
         $scope.buscaPorFiltros = function() {
             var cep = $scope.filter.cep;
             MyAppFactory.get({cepId: $scope.filter.cep})
-            .$promise.then(function(result) {
-                var teste = result;
+            .$promise.then(function(data) {
+                $scope.info = data;
             });
         };
     }]);
