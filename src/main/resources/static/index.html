@@ -19,6 +19,7 @@
 
         #botoes {
             margin-top: 1em;
+            margin-bottom: 1em;
         }
     </style>
 </head>
@@ -37,7 +38,8 @@
                 </small>
             </div>
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="forgotCep" ng-model="filter.forgotCep">
+                <input type="checkbox" class="form-check-input" id="forgotCep"
+                       ng-model="filter.forgotCep" ng-change="limpaFormulario()">
                 <label class="form-check-label" for="forgotCep">Esqueceu o cep?</label>
             </div>
         </div>
@@ -110,7 +112,18 @@
 
         $scope.filter = {
             cep: null,
-            forgotCep: false
+            forgotCep: false,
+            uf: null,
+            cidade: null,
+            logradouro: null
+        }
+
+        $scope.limpaFormulario = function() {
+            if($scope.filter.forgotCep === false) {
+                $scope.filter.uf = null;
+                $scope.filter.cidade = null;
+                $scope.filter.logradouro = null;
+            }
         }
 
         $scope.buscaPorFiltros = function() {
