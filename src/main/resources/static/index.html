@@ -29,22 +29,27 @@
     <div class="container">
         <h1 class="text-center">Busca Cep</h1>
         <div class="row">
-            <div class="form-group col-xs-3 col-md-3 col-sm-3 col-lg-3">
+            <div class="form-group">
                 <label for="cepInput">CEP:</label>
-                <input type="text" class="form-control" id="cepInput" ng-model="filter.cep"
-                       maxlength="25" placeholder="Ex: 99999999" ng-disabled="filter.forgotCep" />
-                <small id="hintCep" class="form-text text-muted">
-                    Informe somente números.
-                </small>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="forgotCep"
-                       ng-model="filter.forgotCep" ng-change="limpaFormulario()">
-                <label class="form-check-label" for="forgotCep">Esqueceu o cep?</label>
+                <br />
+                <div class="col-md-2" style="padding-left: 0;">
+                    <input type="text" class="form-control"
+                           id="cepInput" ng-model="filter.cep" maxlength="25" placeholder="Ex: 99999999"
+                           ng-disabled="filter.forgotCep" />
+                    <small id="hintCep" class="form-text text-muted">
+                        Informe somente números.
+                    </small>
+                </div>
+                <br />
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="forgotCep"
+                           ng-model="filter.forgotCep" ng-change="limpaFormulario()">
+                    <label class="custom-control-label" for="forgotCep">Esqueceu o cep?</label>
+                </div>
             </div>
         </div>
         <div class="row" ng-show="filter.forgotCep">
-            <div class="form-group col-xs-12 col-md-12 col-sm-12 col-lg-12">
+            <div class="form-group">
                 <div class="col-xs-2 col-md-2 col-sm-2 col-lg-2" style="padding: 0;">
                     <label for="uf">UF:</label>
                     <select id="uf" class="form-control col-xs-3 col-md-3 col-sm-3 col-lg-3">
@@ -65,7 +70,7 @@
             </div>
         </div>
         <div id="botoes" class="row">
-            <div class="col-xs-6 col-md-6 col-sm-6 col-lg-6">
+            <div>
                 <button class="btn btn-default" ng-click="buscaPorFiltros()">Buscar</button>
                 <button class="btn btn-default" ng-click="limpar()">Limpar</button>
             </div>
