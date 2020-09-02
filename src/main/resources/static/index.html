@@ -38,7 +38,10 @@
             </div>
         </div>
         <div class="row">
-            <button class="btn btn-default" ng-click="buscaPorFiltros()">Enviar</button>
+            <div class="col-md-6">
+                <button class="btn btn-default" ng-click="buscaPorFiltros()">Buscar</button>
+                <button class="btn btn-default" ng-click="limpar()">Limpar</button>
+            </div>
         </div>
         <div class="row" ng-show="filter.forgotCep">
             <div class="form-group">
@@ -87,6 +90,8 @@
     var myApp = angular.module('myApp', ['ngResource']);
 
     myApp.controller('myCtrl', ['$scope', 'MyAppFactory', function($scope, MyAppFactory){
+        $scope.info = null;
+
         $scope.filter = {
             cep: null,
             forgotCep: false
@@ -98,6 +103,12 @@
             .$promise.then(function(data) {
                 $scope.info = data;
             });
+        };
+
+        $scope.limpar = function() {
+            $scope.info = null;
+            $scope.filter.cep = null;
+            $scope.filter.forgotCep = false;
         };
     }]);
 
