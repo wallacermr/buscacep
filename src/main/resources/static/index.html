@@ -124,6 +124,9 @@
         }
 
         $scope.limpaFormulario = function() {
+            if($scope.filter.forgotCep === true) {
+                $scope.filter.cep = null;
+            }
             if($scope.filter.forgotCep === false) {
                 $scope.filter.uf = null;
                 $scope.filter.cidade = null;
