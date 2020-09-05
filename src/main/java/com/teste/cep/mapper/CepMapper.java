@@ -9,6 +9,6 @@ import org.mapstruct.factory.Mappers;
 public interface CepMapper {
     CepMapper INSTANCE = Mappers.getMapper(CepMapper.class);
 
-    Cep entityToDTO(CepDTO cepDTO);
-    CepDTO DTOToEntity(Cep cep);
+    CepDTO entityToDTO(Cep cep);
+    Cep DTOToEntity(CepDTO cepDto);
 }
