@@ -1,6 +1,7 @@
 package com.teste.cep.service.impl;
 
 import com.teste.cep.client.CepClient;
+import com.teste.cep.dto.CepDTO;
 import com.teste.cep.entity.Cep;
 import com.teste.cep.repository.CepRepository;
 import com.teste.cep.service.CepService;
@@ -21,12 +22,12 @@ public class CepServiceImpl implements CepService {
     }
 
     @Transactional(readOnly = true)
-    public Cep findByCep(String cepId) {
-        return cepRepository.findByCep(cepId);
+    public Cep findByCep(String cep) {
+        return cepRepository.findByCep(cep);
     }
 
-    public Cep getCep(String cepId) {
-        return cepClient.getCep(cepId);
+    public CepDTO getCepService(String cep) {
+        return cepClient.getCepService(cep);
     }
 
     @Transactional

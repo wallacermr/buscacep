@@ -1,8 +1,8 @@
 package com.teste.cep.rest;
 
-import com.teste.cep.Converter;
 import com.teste.cep.dto.CepDTO;
 import com.teste.cep.entity.Cep;
+import com.teste.cep.mapper.CepMapper;
 import com.teste.cep.service.CepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,14 +22,14 @@ public class TesteController {
         this.service = service;
     }
 
-    @GetMapping(path = "/cep/{cepId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public CepDTO getCep(@PathVariable("cepId") String cepId) {
-        Cep resultado = service.findByCep(cepId);
+    @GetMapping(path = "/cep/{cep}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public CepDTO getCep(@PathVariable("cep") String cep) {
+        Cep resultado = service.findByCep(cep);
         if(resultado == null) {
-            Cep cep = service.getCep(cepId);
-            Cep entity = service.save(cep);
-            return Converter.CepEntityParaDTO(entity);
+            CepDTO cepDTO = service.getCepService(cep);
+            Cep cepEntity = CepMapper.INSTANCE.DTOToEntity(cepDTO);
+            return CepMapper.INSTANCE.entityToDTO(service.save(cepEntity));
         }
-        return Converter.CepEntityParaDTO(resultado);
+        return CepMapper.INSTANCE.entityToDTO(resultado);
     }
 }

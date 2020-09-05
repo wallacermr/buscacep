@@ -136,7 +136,7 @@
 
         $scope.buscaPorFiltros = function() {
             var cep = $scope.filter.cep;
-            MyAppFactory.get({cepId: $scope.filter.cep})
+            MyAppFactory.get({cep: $scope.filter.cep})
             .$promise.then(function(data) {
                 $scope.info = data;
             });
@@ -153,7 +153,7 @@
     }]);
 
     myApp.factory('MyAppFactory', ['$resource', function($resource) {
-            return $resource('/apirest/teste/:verb/:cepId', {cepId: '@id'}, {
+            return $resource('/apirest/teste/:verb/:cep', {}, {
                 get: {
                     method: 'GET',
                     params: {verb: 'cep'}

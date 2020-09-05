@@ -1,12 +1,13 @@
 package com.teste.cep.service;
 
+import com.teste.cep.dto.CepDTO;
 import com.teste.cep.entity.Cep;
 
 public interface CepService {
 
-    Cep findByCep(String cepId);
+    Cep findByCep(String cep);
 
-    Cep getCep(String cepId);
+    CepDTO getCepService(String cep);
 
     Cep save(Cep cep);
 }
