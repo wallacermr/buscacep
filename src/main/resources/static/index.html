@@ -72,7 +72,7 @@
         </div>
         <div id="botoes" class="row">
             <div>
-                <button class="btn btn-default" ng-click="buscaPorFiltros()">Buscar</button>
+                <button class="btn btn-default" ng-click="buscaPorFiltros()" ng-disabled="showBtn">Buscar</button>
                 <button class="btn btn-default" ng-click="limpar()">Limpar</button>
             </div>
         </div>
@@ -114,7 +114,7 @@
     var myApp = angular.module('myApp', ['ngResource']);
 
     myApp.controller('myCtrl', ['$scope', 'MyAppFactory', function($scope, MyAppFactory){
-        $scope.info = null;
+        $scope.showBtn = false;
 
         $scope.filter = {
             cep: null,
@@ -134,6 +134,12 @@
                 $scope.filter.logradouro = null;
             }
         }
+
+            //TODO implementar o disable do botao buscar paenas quando o cep for igual a 8 carac ou
+            //uf for diferente de null e cidade e loggradouro forem maiores do que 3 carac
+<!--        if($scope.filter.cep === 8) {-->
+<!--            $scope.showBtn = true;-->
+<!--        } else if($scope.filter.cep === null && $scope.filter.uf)-->
 
         $scope.buscaPorFiltros = function() {
             var cep = $scope.filter.cep;
