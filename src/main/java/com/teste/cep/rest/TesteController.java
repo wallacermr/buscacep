@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/teste")
 public class TesteController {
@@ -31,5 +33,14 @@ public class TesteController {
             return CepMapper.INSTANCE.entityToDTO(service.save(cepEntity));
         }
         return CepMapper.INSTANCE.entityToDTO(resultado);
+    }
+
+    @GetMapping(path = "/cep/{uf}/{cidade}/{logradouro}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CepDTO> getCeps(@PathVariable("uf") String uf,
+                                @PathVariable("cidade") String cidade,
+                                @PathVariable("logradouro") String logradouro) {
+
+        String txt = uf + cidade + logradouro;
+        return null;
     }
 }
