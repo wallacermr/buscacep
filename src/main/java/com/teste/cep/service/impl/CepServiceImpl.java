@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class CepServiceImpl implements CepService {
 
@@ -26,8 +28,12 @@ public class CepServiceImpl implements CepService {
         return cepRepository.findByCep(cep);
     }
 
-    public CepDTO getCepService(String cep) {
-        return cepClient.getCepService(cep);
+    public CepDTO getCep(String cep) {
+        return cepClient.getCep(cep);
+    }
+
+    public List<CepDTO> getListCep(String uf, String cidade, String logradouro) {
+        return cepClient.getListCeps(uf, cidade, logradouro);
     }
 
     @Transactional

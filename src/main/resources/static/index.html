@@ -93,16 +93,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{info.cep}}</td>
-                        <td>{{info.logradouro}}</td>
-                        <td>{{info.complemento}}</td>
-                        <td>{{info.bairro}}</td>
-                        <td>{{info.localidade}}</td>
-                        <td>{{info.uf}}</td>
-                        <td>{{info.ibge}}</td>
-                        <td>{{info.gia}}</td>
-                        <td>{{info.ddd}}</td>
+                    <tr ng-repeat="obj in lista track by $index">
+                        <td>{{obj.cep}}</td>
+                        <td>{{obj.logradouro}}</td>
+                        <td>{{obj.complemento}}</td>
+                        <td>{{obj.bairro}}</td>
+                        <td>{{obj.localidade}}</td>
+                        <td>{{obj.uf}}</td>
+                        <td>{{obj.ibge}}</td>
+                        <td>{{obj.gia}}</td>
+                        <td>{{obj.ddd}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -143,12 +143,12 @@
                 var logradouro = $scope.filter.logradouro;
                 MyAppFactory.obtemCeps.get({uf: uf, cidade: cidade, logradouro: logradouro})
                     .$promise.then(function(data) {
-                    $scope.ceps = data;
+                    $scope.lista = data;
                 });
             } else {
                 MyAppFactory.obtemCep.get({cep: $scope.filter.cep})
                     .$promise.then(function(data) {
-                    $scope.info = data;
+                    $scope.lista = data;
                 });
             }
         };
@@ -168,7 +168,8 @@
             obtemCep: $resource('/apirest/teste/:verb/:cep', {}, {
                 get: {
                     method: 'GET',
-                    params: {verb: 'cep'}
+                    params: {verb: 'cep'},
+                    isArray: true
                 }
             }),
             obtemCeps: $resource('/apirest/teste/:verb/:cep/:uf/:cidade/:logradouro', {}, {
