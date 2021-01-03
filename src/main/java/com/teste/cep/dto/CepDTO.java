@@ -89,23 +89,16 @@ public class CepDTO implements Serializable {
         this.ddd = ddd;
     }
 
-	@Override
-	public int hashCode() {		
-		return Objects.hash(bairro, cep, logradouro, uf);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CepDTO cepDTO = (CepDTO) o;
+        return Objects.equals(cep, cepDTO.cep);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CepDTO other = (CepDTO) obj;
-		return Objects.equals(this.bairro, other.bairro) &&
-				Objects.equals(this.logradouro, other.logradouro) &&
-				Objects.equals(this.cep, other.cep) &&
-				Objects.equals(this.uf, other.uf);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(cep);
+    }
 }

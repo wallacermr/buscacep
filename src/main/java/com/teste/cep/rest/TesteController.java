@@ -1,45 +1,36 @@
 package com.teste.cep.rest;
 
+import com.teste.cep.Converter;
+import com.teste.cep.client.CepClient;
 import com.teste.cep.dto.CepDTO;
 import com.teste.cep.entity.Cep;
-import com.teste.cep.mapper.CepMapper;
-import com.teste.cep.service.CepService;
+import com.teste.cep.repository.CepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collections;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/teste")
+@RequestMapping("/")
 public class TesteController {
 
-    private CepService service;
+    private CepClient cepClient;
+    private CepRepository cepRepository;
 
     @Autowired
-    public TesteController(CepService service) {
-        this.service = service;
+    public TesteController(CepClient cepClient, CepRepository cepRepository) {
+        this.cepClient = cepClient;
+        this.cepRepository = cepRepository;
     }
 
     @GetMapping(path = "/cep/{cep}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<CepDTO> getCep(@PathVariable("cep") String cep) {
-        Cep resultado = service.findByCep(cep);
+    public CepDTO getCep(@PathVariable("cep") String cepId) {
+        Cep resultado = cepRepository.findByCep(cepId);
         if(resultado == null) {
-            CepDTO cepDTO = service.getCep(cep);
-            Cep cepEntity = CepMapper.INSTANCE.DTOToEntity(cepDTO);
-            return Collections.singletonList(CepMapper.INSTANCE.entityToDTO(service.save(cepEntity)));
+            Cep cep = cepClient.getCep(cepId);
+            Cep entity = cepRepository.save(cep);
+            return Converter.CepEntityParaDTO(entity);
         }
-        return Collections.singletonList(CepMapper.INSTANCE.entityToDTO(resultado));
-    }
-
-    @GetMapping(path = "/cep/{uf}/{cidade}/{logradouro}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<CepDTO> getCeps(@PathVariable("uf") String uf,
-                                @PathVariable("cidade") String cidade,
-                                @PathVariable("logradouro") String logradouro) {
-        return service.getListCep(uf, cidade, logradouro);
+        return Converter.CepEntityParaDTO(resultado);
+        //teste
     }
 }
