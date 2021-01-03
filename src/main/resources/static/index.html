@@ -160,6 +160,7 @@
         };
 
         $scope.limpar = function() {
+        	$scope.filter.cep = null;
             $scope.info = null;
             if($scope.filter.forgotCep) {
                 $scope.filter.uf = null;
