@@ -30,7 +30,7 @@ public class TesteController {
         Cep resultado = service.findByCep(cep);
         if(resultado == null) {
             CepDTO cepDTO = service.getCep(cep);
-            Cep cepEntity = CepMapper.INSTANCE.DTOToEntity(cepDTO);
+            Cep cepEntity = CepMapper.INSTANCE.dtoToEntity(cepDTO);
             return Collections.singletonList(CepMapper.INSTANCE.entityToDTO(service.save(cepEntity)));
         }
         return Collections.singletonList(CepMapper.INSTANCE.entityToDTO(resultado));

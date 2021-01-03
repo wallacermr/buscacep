@@ -12,5 +12,5 @@ public interface CepMapper {
     CepMapper INSTANCE = Mappers.getMapper(CepMapper.class);
 
     CepDTO entityToDTO(Cep cep);
-    Cep DTOToEntity(CepDTO cepDto);
+    Cep dtoToEntity(CepDTO cepDto);
 }

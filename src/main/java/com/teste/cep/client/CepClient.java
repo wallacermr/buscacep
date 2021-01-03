@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ public class CepClient {
         CepDTO[] ceps =
                 restTemplate.getForObject("https://viacep.com.br/ws/" + uf.toUpperCase() + "/" + cidade + "/" + logradouro + "/json/", CepDTO[].class);
         if(ceps == null) {
-            return null;
+            return Collections.emptyList();
         }
         return Arrays.asList(ceps);
     }
