@@ -10,11 +10,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-resource.js"></script>
     <style>
         .header {
-            border: 0px solid #000000;
+            border: 0 solid #000000;
             margin: 0.3125em 0.3125em 0.3125em 0.3125em;
             background-color: #66ffc2;
             height: 40px;
             opacity: 0.5;
+        }
+
+        #botoes {
+            margin-top: 1em;
+            margin-bottom: 1em;
         }
     </style>
 </head>
@@ -24,29 +29,51 @@
     <div class="container">
         <h1 class="text-center">Busca Cep</h1>
         <div class="row">
-            <div class="form-group col-xs-3 col-md-3 col-sm-3 col-lg-3">
-                <labe for="cepInput">CEP:</labe>
-                <input type="text" class="form-control" id="cepInput" ng-model="filter.cep"
-                       maxlength="25" placeholder="Ex: 99999999" ng-disabled="filter.forgotCep" />
-                <small id="hintCep" class="form-text text-muted">
-                    Informe somente números.
-                </small>
+            <div class="form-group">
+                <label for="cepInput">CEP:</label>
+                <br />
+                <div class="col-md-2" style="padding-left: 0;">
+                    <input type="text" class="form-control"
+                           id="cepInput" ng-model="filter.cep" maxlength="25" placeholder="Ex: 99999999"
+                           ng-disabled="filter.forgotCep" />
+                    <small id="hintCep" class="form-text text-muted">
+                        Informe somente números.
+                    </small>
+                </div>
+                <br />
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="forgotCep"
+                           ng-model="filter.forgotCep" ng-change="limpaFormulario()">
+                    <label class="custom-control-label" for="forgotCep">Esqueceu o cep?</label>
+                </div>
             </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="forgotCep" ng-model="filter.forgotCep">
-                <label class="form-check-label" for="forgotCep">Esqueceu o cep?</label>
-            </div>
-        </div>
-        <div class="row">
-            <button class="btn btn-default" ng-click="buscaPorFiltros()">Enviar</button>
         </div>
         <div class="row" ng-show="filter.forgotCep">
             <div class="form-group">
-                <label for="uf">UF:</label>
-                <select id="uf">
-                    <option>ES</option>
-                    <option>SP</option>
-                </select>
+                <div class="col-xs-2 col-md-2 col-sm-2 col-lg-2" style="padding: 0;">
+                    <label for="uf">UF:</label>
+                    <select id="uf" ng-model="filter.uf"
+                            class="form-control col-xs-3 col-md-3 col-sm-3 col-lg-3">
+                        <option value="es">ES</option>
+                        <option value="sp">SP</option>
+                    </select>
+                </div>
+                <div class="col-xs-3 col-md-3 col-sm-3 col-lg-3">
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" class="form-control"
+                           maxlength="100" ng-model="filter.cidade">
+                </div>
+                <div class="col-xs-4 col-md-4 col-sm-4 col-lg-4">
+                    <label for="logradouro">Logradouro:</label>
+                    <input type="text" id="logradouro" class="form-control"
+                           maxlength="200" ng-model="filter.logradouro">
+                </div>
+            </div>
+        </div>
+        <div id="botoes" class="row">
+            <div>
+                <button class="btn btn-default" ng-click="buscaPorFiltros()" ng-disabled="showBtn">Buscar</button>
+                <button class="btn btn-default" ng-click="limpar()">Limpar</button>
             </div>
         </div>
         <div class="row">
@@ -66,8 +93,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-
+                    <tr ng-repeat="obj in lista track by $index">
+                        <td>{{obj.cep}}</td>
+                        <td>{{obj.logradouro}}</td>
+                        <td>{{obj.complemento}}</td>
+                        <td>{{obj.bairro}}</td>
+                        <td>{{obj.localidade}}</td>
+                        <td>{{obj.uf}}</td>
+                        <td>{{obj.ibge}}</td>
+                        <td>{{obj.gia}}</td>
+                        <td>{{obj.ddd}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -79,27 +114,78 @@
     var myApp = angular.module('myApp', ['ngResource']);
 
     myApp.controller('myCtrl', ['$scope', 'MyAppFactory', function($scope, MyAppFactory){
+        $scope.showBtn = false;
+
         $scope.filter = {
             cep: null,
-            forgotCep: false
+            forgotCep: false,
+            uf: null,
+            cidade: null,
+            logradouro: null
         }
+
+        $scope.limpaFormulario = function() {
+            if($scope.filter.forgotCep === true) {
+                $scope.filter.cep = null;
+            }
+            if($scope.filter.forgotCep === false) {
+                $scope.filter.uf = null;
+                $scope.filter.cidade = null;
+                $scope.filter.logradouro = null;
+            }
+        }
+
+            //TODO implementar o disable do botao buscar paenas quando o cep for igual a 8 carac ou
+            //uf for diferente de null e cidade e loggradouro forem maiores do que 3 carac
+			//if($scope.filter.cep === 8) {-->
+			//    $scope.showBtn = true;-->
+			//} else if($scope.filter.cep === null && $scope.filter.uf)-->
 
         $scope.buscaPorFiltros = function() {
             var cep = $scope.filter.cep;
-            MyAppFactory.get({cep: $scope.filter.cep})
-            .$promise.then(function(result) {
-                var teste = result;
-            });
+            if($scope.filter.forgotCep) {
+                var uf = $scope.filter.uf;
+                var cidade = $scope.filter.cidade;
+                var logradouro = $scope.filter.logradouro;
+                MyAppFactory.obtemCeps.get({uf: uf, cidade: cidade, logradouro: logradouro})
+                    .$promise.then(function(data) {
+                    $scope.lista = data;
+                });
+            } else {
+                MyAppFactory.obtemCep.get({cep: $scope.filter.cep})
+                    .$promise.then(function(data) {
+                    $scope.lista = data;
+                });
+            }
+        };
+
+        $scope.limpar = function() {
+            $scope.info = null;
+            if($scope.filter.forgotCep) {
+                $scope.filter.uf = null;
+                $scope.filter.cidade = null;
+                $scope.filter.logradouro = null;
+            }
         };
     }]);
 
     myApp.factory('MyAppFactory', ['$resource', function($resource) {
-            return $resource('/apirest/:verb', {}, {
+        return {
+            obtemCep: $resource('/apirest/teste/:verb/:cep', {}, {
                 get: {
                     method: 'GET',
-                    params: {verb: 'cep'}
+                    params: {verb: 'cep'},
+                    isArray: true
                 }
-            });
+            }),
+            obtemCeps: $resource('/apirest/teste/:verb/:cep/:uf/:cidade/:logradouro', {}, {
+                get: {
+                    method: 'GET',
+                    params: {verb: 'cep'},
+                    isArray: true
+                }
+            })
+        }
     }]);
 
     myApp.config(['$resourceProvider', function($resourceProvider) {
