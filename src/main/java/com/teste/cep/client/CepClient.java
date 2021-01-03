@@ -5,6 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+<<<<<<< HEAD
+=======
+import java.util.Collections;
+>>>>>>> dev
 import java.util.List;
 
 @Service
@@ -19,7 +23,11 @@ public class CepClient {
         CepDTO[] ceps =
                 restTemplate.getForObject("https://viacep.com.br/ws/" + uf.toUpperCase() + "/" + cidade + "/" + logradouro + "/json/", CepDTO[].class);
         if(ceps == null) {
+<<<<<<< HEAD
             return null;
+=======
+            return Collections.emptyList();
+>>>>>>> dev
         }
         return Arrays.asList(ceps);
     }
