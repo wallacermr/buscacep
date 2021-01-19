@@ -1,0 +1,12 @@
+.header {
+    border: 0 solid #000000;
+    margin: 0.3125em 0.3125em 0.3125em 0.3125em;
+    background-color: #66ffc2;
+    height: 40px;
+    opacity: 0.5;
+}
+
+#botoes {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
