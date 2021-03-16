@@ -23,7 +23,7 @@ export function Form({setCeps}) {
         if(!isChecked) {
             parameter = cep.toString();
         }
-        const data = await fetch(`http://localhost:8080/apirest/teste/cep/${parameter}`).then(response => response.json());
+        const data = await fetch(`${process.env.URL}/teste/cep/${parameter}`).then(response => response.json());
         setCeps(data);
     }
 
@@ -38,10 +38,7 @@ export function Form({setCeps}) {
                     <div style={{display: 'grid', gridTemplateColumns: '30% 70%'}}>
                         <div style={{paddingLeft: 0}}>
                             <input type="number" className="form-control" value={cep} id="cepInput" maxLength="8" placeholder="Ex: 99999999"
-                            onChange={(event) => {
-                                const val = event.target.value;
-                                setCep(val);
-                            }} />
+                            onChange={(event) => {setCep(event.target.value)}} />
                             <small id="hintCep" className="form-text text-muted">
                                 Informe somente números.
                             </small>
