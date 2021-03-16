@@ -1,5 +1,5 @@
 module.exports = {
     env: {
-        URL: 'http://localhost:8080/apirest'
+        URL: process.env.CONTEXT_URL
     }
 }
