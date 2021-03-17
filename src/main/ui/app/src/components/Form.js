@@ -1,5 +1,6 @@
 import { Botao } from '../components/Botao';
 import { useState, useEffect } from 'react';
+import { ForgotForm } from './ForgotForm';
 
 export function Form({setCeps}) {
     const[isChecked, setIsChecked] = useState(false);
@@ -54,7 +55,7 @@ export function Form({setCeps}) {
                             <label style={{paddingLeft: '0.2rem'}} className="custom-control-label" htmlFor="forgotCep">Esqueceu o cep?</label>
                         </div>
 
-                        {isChecked && (<h1>Teste</h1>)}
+                        {isChecked && (<ForgotForm />)}
 
                         <Botao onClick={onSubmit} />
                     </div>
