@@ -1,6 +1,6 @@
 export function Table({ceps}) {
     return(
-        <div className="row" style={{marginTop: '0.7rem'}}>
+        <div style={{marginTop: '0.7rem'}}>
             <table className="table table-responsive">
                 <thead>
                     <tr>
@@ -31,8 +31,7 @@ export function Table({ceps}) {
                             <td>{cep.ddd}</td>
                             <td>{cep.siafi}</td>
                         </tr>);
-                    })}
-                    
+                    })}                    
                 </tbody>
             </table>
         </div>
