@@ -1,7 +1,7 @@
 export function Botao({onClick}) {
     return(
-        <div  style={{marginTop: '0.3rem'}}>
-            <button className="btn btn-primary" id="sendBtn" onClick={onClick}>Enviar</button>
+        <div style={{paddingTop: '1.0rem'}}>
+            <button id="sendBtn" className="btn btn-primary" onClick={onClick}>Enviar</button>
         </div>
     );
 }
