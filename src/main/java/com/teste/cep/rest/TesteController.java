@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class TesteController {
             return Collections.singletonList(CepMapper.INSTANCE.entityToDTO(service.save(cepEntity)));
         }
         return Collections.singletonList(CepMapper.INSTANCE.entityToDTO(resultado));
+    }
+
+    @GetMapping(path = "/uf", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> getUfList() {
+        return Arrays.asList("SP", "ES");
     }
 
     @GetMapping(path = "/cep/{uf}/{cidade}/{logradouro}", produces = MediaType.APPLICATION_JSON_VALUE)

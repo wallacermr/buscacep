@@ -12,6 +12,10 @@ export function Form({setCeps}) {
     * então é usado a função do react useEffect() para acessá-lo.
     */
     useEffect(() => {
+        if(isChecked == true) {
+            console.log(document.getElementById('uf').value);
+        }
+
         cep.length == '' || cep.length < 8 ? document.getElementById('sendBtn').disabled = true : document.getElementById('sendBtn').disabled = false;
     });
 
