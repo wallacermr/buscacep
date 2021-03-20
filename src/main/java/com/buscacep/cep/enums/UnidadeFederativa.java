@@ -2,11 +2,6 @@ package com.buscacep.cep.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum UnidadeFederativa {
     RO("RO", "Rondônia", "11"),
