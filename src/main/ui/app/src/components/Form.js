@@ -16,7 +16,7 @@ export function Form({setCeps}) {
         cep.length == "" || cep.length < 8 ? document.getElementById("sendBtn").disabled = true : document.getElementById("sendBtn").disabled = false;
     });
 
-    const onSubmit = async () => {
+    const enviar = async () => {
         let parameter = "";
         if(!isChecked) {
             parameter = cep.toString();
@@ -55,7 +55,7 @@ export function Form({setCeps}) {
 
             {isChecked && (<ForgotForm />)}
             
-            <Botao onClick={onSubmit} />
+            <Botao action={enviar} />
         </div>
     );
 }
