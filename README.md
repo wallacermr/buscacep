@@ -1,4 +1,4 @@
-#buscacep
+<strong>#buscacep</strong><br />
 Simples aplicação para buscar cep ou ceps fazendo uma requisição em viacep.com.br<br />
 Essa aplicação foi construída com React, mais especifícamente com um framework chamado Nextjs que é baseado no Rect.
 
