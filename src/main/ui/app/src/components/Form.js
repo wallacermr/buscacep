@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 
 export function Form({setCeps}) {
     const[isChecked, setIsChecked] = useState(false);
-    const[cep, setCep] = useState('');
+    const[cep, setCep] = useState("");
 
     /*
     * Como o nextjs usa um servidor para renderizar esta parte do código
@@ -13,11 +13,11 @@ export function Form({setCeps}) {
     * então é usado a função do react useEffect() para acessá-lo.
     */
     useEffect(() => {
-        cep.length == '' || cep.length < 8 ? document.getElementById('sendBtn').disabled = true : document.getElementById('sendBtn').disabled = false;
+        cep.length == "" || cep.length < 8 ? document.getElementById("sendBtn").disabled = true : document.getElementById("sendBtn").disabled = false;
     });
 
     const onSubmit = async () => {
-        let parameter = '';
+        let parameter = "";
         if(!isChecked) {
             parameter = cep.toString();
         }
@@ -42,9 +42,9 @@ export function Form({setCeps}) {
                     const wasChecked = event.target.checked;
                     if(wasChecked) {
                         setCep('');
-                        document.getElementById('cepInput').disabled = wasChecked;
+                        document.getElementById("cepInput").disabled = wasChecked;
                     } else {
-                        document.getElementById('cepInput').disabled = wasChecked;
+                        document.getElementById("cepInput").disabled = wasChecked;
                     }
                     
                     setIsChecked(wasChecked);

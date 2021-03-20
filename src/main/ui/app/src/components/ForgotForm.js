@@ -3,12 +3,12 @@ import { UnidadeFederativa } from '../class/UnidadeFederativa';
 
 export function ForgotForm() {
     const[items, setItems] = useState([]);
-    const[ufValue, setUfValue] = useState('');
+    const[ufValue, setUfValue] = useState("");
 
     useEffect(() => {
         async function getUfList() {
             const data = await fetch(`${process.env.URL}/cep/uf`).then(response => response.json());
-            const listaUnidadesFederativas = [];
+            const listaUnidadesFederativas = [new UnidadeFederativa("", "", Math.random())];
 
             data.forEach(element => {
                 listaUnidadesFederativas.push(new UnidadeFederativa(element.id, element.nome, element.codigoUf));
