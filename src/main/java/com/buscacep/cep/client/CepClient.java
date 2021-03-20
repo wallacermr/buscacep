@@ -1,6 +1,6 @@
-package com.teste.cep.client;
+package com.buscacep.cep.client;
 
-import com.teste.cep.dto.CepDTO;
+import com.buscacep.cep.dto.CepDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

@@ -1,7 +1,7 @@
-package com.teste.cep.mapper;
+package com.buscacep.cep.mapper;
 
-import com.teste.cep.dto.CepDTO;
-import com.teste.cep.entity.Cep;
+import com.buscacep.cep.dto.CepDTO;
+import com.buscacep.cep.entity.Cep;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;

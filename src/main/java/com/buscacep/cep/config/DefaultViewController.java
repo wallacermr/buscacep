@@ -1,4 +1,4 @@
-package com.teste.cep.config;
+package com.buscacep.cep.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

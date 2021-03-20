@@ -1,9 +1,9 @@
-package com.teste.cep.rest;
+package com.buscacep.cep.rest;
 
-import com.teste.cep.dto.CepDTO;
-import com.teste.cep.entity.Cep;
-import com.teste.cep.mapper.CepMapper;
-import com.teste.cep.service.CepService;
+import com.buscacep.cep.dto.CepDTO;
+import com.buscacep.cep.entity.Cep;
+import com.buscacep.cep.mapper.CepMapper;
+import com.buscacep.cep.service.CepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

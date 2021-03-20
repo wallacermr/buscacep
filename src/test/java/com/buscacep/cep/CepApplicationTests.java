@@ -1,4 +1,4 @@
-package com.teste.cep;
+package com.buscacep.cep;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

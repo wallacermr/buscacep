@@ -1,6 +1,7 @@
 import { Botao } from '../components/Botao';
-import { useState, useEffect } from 'react';
 import { ForgotForm } from './ForgotForm';
+
+import { useState, useEffect, useContext } from 'react';
 
 export function Form({setCeps}) {
     const[isChecked, setIsChecked] = useState(false);
@@ -12,10 +13,6 @@ export function Form({setCeps}) {
     * então é usado a função do react useEffect() para acessá-lo.
     */
     useEffect(() => {
-        if(isChecked == true) {
-            console.log(document.getElementById('uf').value);
-        }
-
         cep.length == '' || cep.length < 8 ? document.getElementById('sendBtn').disabled = true : document.getElementById('sendBtn').disabled = false;
     });
 
@@ -24,7 +21,7 @@ export function Form({setCeps}) {
         if(!isChecked) {
             parameter = cep.toString();
         }
-        const data = await fetch(`${process.env.URL}/teste/cep/${parameter}`).then(response => response.json());
+        const data = await fetch(`${process.env.URL}/cep/cep/${parameter}`).then(response => response.json());
         setCeps(data);
     }
 

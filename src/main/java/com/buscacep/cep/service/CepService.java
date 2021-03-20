@@ -1,7 +1,7 @@
-package com.teste.cep.service;
+package com.buscacep.cep.service;
 
-import com.teste.cep.dto.CepDTO;
-import com.teste.cep.entity.Cep;
+import com.buscacep.cep.dto.CepDTO;
+import com.buscacep.cep.entity.Cep;
 
 import java.util.List;
 
