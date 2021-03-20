@@ -1,10 +1,11 @@
 import { Botao } from '../components/Botao';
-import { useState, useEffect } from 'react';
 import { ForgotForm } from './ForgotForm';
+
+import { useState, useEffect, useContext } from 'react';
 
 export function Form({setCeps}) {
     const[isChecked, setIsChecked] = useState(false);
-    const[cep, setCep] = useState('');
+    const[cep, setCep] = useState("");
 
     /*
     * Como o nextjs usa um servidor para renderizar esta parte do código
@@ -12,26 +13,22 @@ export function Form({setCeps}) {
     * então é usado a função do react useEffect() para acessá-lo.
     */
     useEffect(() => {
-        if(isChecked == true) {
-            console.log(document.getElementById('uf').value);
-        }
-
-        cep.length == '' || cep.length < 8 ? document.getElementById('sendBtn').disabled = true : document.getElementById('sendBtn').disabled = false;
+        cep.length == "" || cep.length < 8 ? document.getElementById("sendBtn").disabled = true : document.getElementById("sendBtn").disabled = false;
     });
 
     const onSubmit = async () => {
-        let parameter = '';
+        let parameter = "";
         if(!isChecked) {
             parameter = cep.toString();
         }
-        const data = await fetch(`${process.env.URL}/teste/cep/${parameter}`).then(response => response.json());
+        const data = await fetch(`${process.env.URL}/cep/cep/${parameter}`).then(response => response.json());
         setCeps(data);
     }
 
     return (
         <div>
-            <h1 className="text-center">Busca Cep</h1>
-            <div className="form-group">
+            <h1 className="text-center">Buscador de Cep</h1>
+            <div className="form-group col-md-4">
                 <label htmlFor="cepInput">CEP:</label>
                 <input type="number" className="form-control" value={cep} id="cepInput" maxLength="8" placeholder="Ex: 99999999"
                         onChange={(event) => {setCep(event.target.value)}} />
@@ -45,9 +42,9 @@ export function Form({setCeps}) {
                     const wasChecked = event.target.checked;
                     if(wasChecked) {
                         setCep('');
-                        document.getElementById('cepInput').disabled = wasChecked;
+                        document.getElementById("cepInput").disabled = wasChecked;
                     } else {
-                        document.getElementById('cepInput').disabled = wasChecked;
+                        document.getElementById("cepInput").disabled = wasChecked;
                     }
                     
                     setIsChecked(wasChecked);

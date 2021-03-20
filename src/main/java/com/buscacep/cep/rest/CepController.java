@@ -1,32 +1,33 @@
-package com.teste.cep.rest;
+package com.buscacep.cep.rest;
 
-import com.teste.cep.dto.CepDTO;
-import com.teste.cep.entity.Cep;
-import com.teste.cep.mapper.CepMapper;
-import com.teste.cep.service.CepService;
+import com.buscacep.cep.dto.CepDTO;
+import com.buscacep.cep.entity.Cep;
+import com.buscacep.cep.enums.UnidadeFederativa;
+import com.buscacep.cep.mapper.CepMapper;
+import com.buscacep.cep.service.CepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/teste")
-public class TesteController {
+@RequestMapping(path = "cep")
+public class CepController {
 
     private CepService service;
 
     @Autowired
-    public TesteController(CepService service) {
+    public CepController(CepService service) {
         this.service = service;
     }
 
-    @GetMapping(path = "/cep/{cep}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "cep/{cep}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CepDTO> getCep(@PathVariable("cep") String cep) {
         Cep resultado = service.findByCep(cep);
         if(resultado == null) {
@@ -37,12 +38,12 @@ public class TesteController {
         return Collections.singletonList(CepMapper.INSTANCE.entityToDTO(resultado));
     }
 
-    @GetMapping(path = "/uf", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> getUfList() {
-        return Arrays.asList("SP", "ES");
+    @GetMapping(path = "uf", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UnidadeFederativa[]> getUfList() {
+        return ResponseEntity.ok(UnidadeFederativa.values());
     }
 
-    @GetMapping(path = "/cep/{uf}/{cidade}/{logradouro}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "cep/{uf}/{cidade}/{logradouro}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CepDTO> getCeps(@PathVariable("uf") String uf,
                                 @PathVariable("cidade") String cidade,
                                 @PathVariable("logradouro") String logradouro) {

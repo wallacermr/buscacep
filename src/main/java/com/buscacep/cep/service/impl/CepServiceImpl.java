@@ -1,10 +1,10 @@
-package com.teste.cep.service.impl;
+package com.buscacep.cep.service.impl;
 
-import com.teste.cep.client.CepClient;
-import com.teste.cep.dto.CepDTO;
-import com.teste.cep.entity.Cep;
-import com.teste.cep.repository.CepRepository;
-import com.teste.cep.service.CepService;
+import com.buscacep.cep.client.CepClient;
+import com.buscacep.cep.dto.CepDTO;
+import com.buscacep.cep.entity.Cep;
+import com.buscacep.cep.repository.CepRepository;
+import com.buscacep.cep.service.CepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
