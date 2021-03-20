@@ -1,4 +1,7 @@
 # buscacep
-Simple project to get zip code or zip codes by rest api. Make a request to the viacep.com.br service and get the zip code.
+Simples aplicação para buscar cep ou ceps fazendo uma requisição em viacep.com.br
+Essa aplicação foi construída com React, mais especifícamente com um framework chamado Nextjs que é baseado no Rect.
 
-first of all. it is necessary to have yarn installed. this is a react application using the nextjs framework.
+#BackEnd
+Java 11;
+Por enquanto, o cep após ser buscado no serviço é salvo o dado retornado no banco em memória H2.
