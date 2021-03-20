@@ -2,16 +2,17 @@ package com.buscacep.cep.rest;
 
 import com.buscacep.cep.dto.CepDTO;
 import com.buscacep.cep.entity.Cep;
+import com.buscacep.cep.enums.UnidadeFederativa;
 import com.buscacep.cep.mapper.CepMapper;
 import com.buscacep.cep.service.CepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,8 +39,8 @@ public class CepController {
     }
 
     @GetMapping(path = "uf", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> getUfList() {
-        return Arrays.asList("SP", "ES");
+    public ResponseEntity<UnidadeFederativa[]> getUfList() {
+        return ResponseEntity.ok(UnidadeFederativa.values());
     }
 
     @GetMapping(path = "cep/{uf}/{cidade}/{logradouro}", produces = MediaType.APPLICATION_JSON_VALUE)

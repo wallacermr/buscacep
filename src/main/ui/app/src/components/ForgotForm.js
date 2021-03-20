@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { UF } from '../class/Uf';
+import { UnidadeFederativa } from '../class/UnidadeFederativa';
 
 export function ForgotForm() {
     const[items, setItems] = useState([]);
@@ -7,19 +7,13 @@ export function ForgotForm() {
 
     useEffect(() => {
         async function getUfList() {
-            const data = await fetch(`${process.env.URL}/teste/uf`).then(response => response.json());
-            const arr = [];
-            
-            //funciona, mas o map é usado quando eu quiser retornar algum valor
-            //data.map((value, label) => {
-            //    result.push(new UF(value, value));
-            //});
+            const data = await fetch(`${process.env.URL}/cep/uf`).then(response => response.json());
+            const listaUnidadesFederativas = [];
 
-            //neste caso vou usar apenas um forEach, ja q não poreciso retornar valor
             data.forEach(element => {
-                arr.push(new UF(element, element));
+                listaUnidadesFederativas.push(new UnidadeFederativa(element.id, element.nome, element.codigoUf));
             });
-            setItems(arr);
+            setItems(listaUnidadesFederativas);
         }
         getUfList();
     }, []);
@@ -30,8 +24,8 @@ export function ForgotForm() {
                 <label htmlFor="uf">UF:</label>
                 <select id="uf" className="form-control" value={ufValue} onChange={(event) => setUfValue(event.currentTarget.value)}>
                     {items.map((item) => (
-                        <option key={item.value} value={item.value}>
-                            {item.label}
+                        <option key={item.codigoUf} value={item.id}>
+                            {item.nome}
                         </option>
                     ))}
                 </select>
