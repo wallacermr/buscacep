@@ -16,17 +16,17 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/teste")
-public class TesteController {
+@RequestMapping(path = "cep")
+public class CepController {
 
     private CepService service;
 
     @Autowired
-    public TesteController(CepService service) {
+    public CepController(CepService service) {
         this.service = service;
     }
 
-    @GetMapping(path = "/cep/{cep}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "cep/{cep}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CepDTO> getCep(@PathVariable("cep") String cep) {
         Cep resultado = service.findByCep(cep);
         if(resultado == null) {
@@ -37,12 +37,12 @@ public class TesteController {
         return Collections.singletonList(CepMapper.INSTANCE.entityToDTO(resultado));
     }
 
-    @GetMapping(path = "/uf", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "uf", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> getUfList() {
         return Arrays.asList("SP", "ES");
     }
 
-    @GetMapping(path = "/cep/{uf}/{cidade}/{logradouro}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "cep/{uf}/{cidade}/{logradouro}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CepDTO> getCeps(@PathVariable("uf") String uf,
                                 @PathVariable("cidade") String cidade,
                                 @PathVariable("logradouro") String logradouro) {
