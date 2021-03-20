@@ -27,8 +27,8 @@ export function Form({setCeps}) {
 
     return (
         <div>
-            <h1 className="text-center">Busca Cep</h1>
-            <div className="form-group">
+            <h1 className="text-center">Buscador de Cep</h1>
+            <div className="form-group col-md-4">
                 <label htmlFor="cepInput">CEP:</label>
                 <input type="number" className="form-control" value={cep} id="cepInput" maxLength="8" placeholder="Ex: 99999999"
                         onChange={(event) => {setCep(event.target.value)}} />

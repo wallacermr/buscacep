@@ -19,7 +19,7 @@ export function ForgotForm() {
     }, []);
 
     return (
-        <div className="form-row">
+        <div className="row">
             <div className="form-group col-md-1">
                 <label htmlFor="uf">UF:</label>
                 <select id="uf" className="form-control" value={ufValue} onChange={(event) => setUfValue(event.currentTarget.value)}>
@@ -34,7 +34,7 @@ export function ForgotForm() {
                 <label htmlFor="cidade">Cidade:</label>
                 <input type="text" className="form-control" id="cidade" />
             </div>
-            <div className="form-group col-md-6">
+            <div className="form-group col-md-7">
                 <label htmlFor="logradouro">Logradouro:</label>
                 <input type="text" className="form-control" id="logradouro" />
             </div>
