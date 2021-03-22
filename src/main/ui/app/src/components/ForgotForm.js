@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { UnidadeFederativa } from '../class/UnidadeFederativa';
+import { FormContext } from '../contexts/FormContext';
 
 export function ForgotForm() {
+    const { uf, setUf, cidade, setCidade, logradouro, setLogradouro } = useContext(FormContext);
     const[items, setItems] = useState([]);
-    const[ufValue, setUfValue] = useState("");
+    
 
     useEffect(() => {
         async function getUfList() {
@@ -22,7 +24,7 @@ export function ForgotForm() {
         <div className="row">
             <div className="form-group col-md-2">
                 <label htmlFor="uf">UF:</label>
-                <select id="uf" className="form-control" value={ufValue} onChange={(event) => setUfValue(event.currentTarget.value)}>
+                <select id="uf" className="form-control" value={uf} onChange={(event) => setUf(event.currentTarget.value)}>
                     {items.map((item) => (
                         <option key={item.codigoUf} value={item.id}>
                             {item.nome}
@@ -32,11 +34,11 @@ export function ForgotForm() {
             </div>
             <div className="form-group col-md-4">
                 <label htmlFor="cidade">Cidade:</label>
-                <input type="text" className="form-control" id="cidade" />
+                <input type="text" className="form-control" id="cidade" value={cidade} onChange={(event) => setCidade(event.target.value)} />
             </div>
             <div className="form-group col-md-6">
                 <label htmlFor="logradouro">Logradouro:</label>
-                <input type="text" className="form-control" id="logradouro" />
+                <input type="text" className="form-control" id="logradouro" value={logradouro} onChange={(event) => setLogradouro(event.target.value)} />
             </div>
         </div>
     );
