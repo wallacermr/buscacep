@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CepServiceImpl implements CepService {
@@ -33,7 +35,10 @@ public class CepServiceImpl implements CepService {
     }
 
     public List<CepDTO> getListCep(String uf, String cidade, String logradouro) {
-        return cepClient.getListCeps(uf, cidade, logradouro);
+        List<CepDTO> listCeps = cepClient.getListCeps(uf, cidade, logradouro);
+        return listCeps.stream()
+                .sorted(Comparator.comparing(CepDTO::getLogradouro))
+                .collect(Collectors.toList());
     }
 
     @Transactional
