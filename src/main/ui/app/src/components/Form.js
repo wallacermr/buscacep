@@ -65,8 +65,10 @@ export function Form({setCeps}) {
             </div>
 
             {isChecked && (<ForgotForm />)}
-            
-            <Botao action={enviar} />
+            <div className="row">
+                <Botao idButton="sendBtn" theme="Enviar" action={enviar} />
+                <Botao idButton="clearBtn" theme="Limpar" />
+            </div>
         </div>
     );
 }
