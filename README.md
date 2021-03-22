@@ -5,3 +5,12 @@ Essa aplicação foi construída com React, mais especifícamente com um framewo
 #BackEnd<br />
 Linguagem: Java 11<br />
 Por enquanto, o cep após ser buscado no serviço é salvo o dado retornado no banco em memória H2.
+
+<strong>#FronEnd</strong><br />
+Framework NextJs que é baseado no React<br />
+
+...<br />
+
+
+rodar o comando: yarn add react-paginate<br />
+para o componente ReactPaginate e suas props de paginação.<br />
