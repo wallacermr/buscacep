@@ -15,15 +15,15 @@ export function Form({setCeps}) {
     * então é usado a função do react useEffect() para acessá-lo.
     */
     useEffect(() => {
-        if(isChecked === false && (cep.length == "" || cep.length < 8)) {
-            setUf("");
-            setCidade("");
-            setLogradouro("");
-            document.getElementById("sendBtn").disabled = true;
-        } else if (isChecked && (uf === "" || cidade.length < 3 || logradouro.length < 3)) {
-            document.getElementById("sendBtn").disabled = true;
+        let sendButton = document.getElementById("sendBtn");
+        let clearButton = document.getElementById("clearBtn");
+
+        if(isChecked == false) {
+            cep.trim().length == 8 ? sendButton.disabled = false : sendButton.disabled = true;
+            cep.length > 0 ? clearButton.disabled = false : clearButton.disabled = true;
         } else {
-            document.getElementById("sendBtn").disabled = false;
+            uf != "" || cidade.trim().length > 0 || logradouro.trim().length > 0 ? clearButton.disabled = false : clearButton.disabled = true;
+            uf != "" && cidade.trim().length >= 3 && logradouro.trim().length >= 3 ? sendButton.disabled = false : sendButton.disabled = true;
         }
     });
 
@@ -34,6 +34,16 @@ export function Form({setCeps}) {
         }
         const data = await fetch(`${process.env.URL}/cep/cep/${parameter}`).then(response => response.json());
         setCeps(data);
+    }
+
+    const cleanFields = () => {
+        if(isChecked == false) {
+            setCep("");
+        } else {
+            setCidade("");
+            setLogradouro("");
+            setUf("");
+        }
     }
 
     return (
@@ -55,6 +65,9 @@ export function Form({setCeps}) {
                         setCep("");
                         document.getElementById("cepInput").disabled = wasChecked;
                     } else {
+                        setUf("");
+                        setCidade("");
+                        setLogradouro("");
                         document.getElementById("cepInput").disabled = wasChecked;
                     }
                     
@@ -67,7 +80,7 @@ export function Form({setCeps}) {
             {isChecked && (<ForgotForm />)}
             <div className="row">
                 <Botao idButton="sendBtn" theme="Enviar" action={enviar} />
-                <Botao idButton="clearBtn" theme="Limpar" />
+                <Botao idButton="clearBtn" theme="Limpar" action={cleanFields} />
             </div>
         </div>
     );
