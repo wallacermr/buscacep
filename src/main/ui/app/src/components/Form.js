@@ -28,11 +28,14 @@ export function Form({setCeps}) {
     });
 
     const enviar = async () => {
-        let parameter = "";
-        if(!isChecked) {
-            parameter = cep.toString();
+        let pCep = "";
+        let data = {};
+        if(isChecked == false) {
+            pCep = cep.toString();
+            data = await fetch(`${process.env.URL}/cep/cep/${pCep}`).then(response => response.json());
+        } else {
+            data = await fetch(`${process.env.URL}/cep/cep/${uf}/${cidade}/${logradouro}`).then(response => response.json());
         }
-        const data = await fetch(`${process.env.URL}/cep/cep/${parameter}`).then(response => response.json());
         setCeps(data);
     }
 
