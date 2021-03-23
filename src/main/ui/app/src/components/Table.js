@@ -1,4 +1,26 @@
+import {useState, useEffect} from 'react';
+import ReactPaginate from 'react-paginate';
+
 export function Table({ceps}) {
+
+    //Paginate items
+    const PER_PAGE = 10;
+    const pageCount = Math.ceil(ceps.length / PER_PAGE);
+    const [currentPage, setCurrentPage] = useState(0);
+    const offset = currentPage * PER_PAGE;
+
+    const [isShowPaginateDiv, setIsShowPaginateDiv] = useState(false);
+    
+    function handlePageClick({ selected: selectedPage }) {
+        setCurrentPage(selectedPage);
+    }
+
+    useEffect(() => {
+        if(ceps.length > 0) {
+            setIsShowPaginateDiv(true);
+        }
+    });
+
     return(
         <div style={{marginTop: '0.7rem'}}>
             <table className="table table-responsive">
@@ -34,6 +56,26 @@ export function Table({ceps}) {
                     })}                    
                 </tbody>
             </table>
+            {isShowPaginateDiv && (
+                <div>
+                    <ReactPaginate
+                        previousLabel={'anterior'}
+                        nextLabel={'próximo'}
+                        pageCount={pageCount}
+                        pageRangeDisplayed={5}
+                        marginPagesDisplayed={2}
+                        onPageChange={handlePageClick}
+                        containerClassName={'pagination'}
+                        pageClassName={'page-item'}
+                        pageLinkClassName={'page-link'}
+                        previousClassName={'page-item'}
+                        previousLinkClassName={'page-link'}
+                        nextClassName={'page-item'}
+                        nextLinkClassName={'page-link'}
+                        activeClassName={'active'}
+                    />
+                </div>
+            )}
         </div>
     );
-} 
+}
