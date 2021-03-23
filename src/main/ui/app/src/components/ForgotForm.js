@@ -9,7 +9,7 @@ export function ForgotForm() {
 
     useEffect(() => {
         async function getUfList() {
-            const data = await fetch(`${process.env.URL}/cep/uf`).then(response => response.json());
+            const data = await fetch(`${process.env.URL}/cepApi/uf`).then(response => response.json());
             const listaUnidadesFederativas = [new UnidadeFederativa("", "", Math.random())];
 
             data.forEach(element => {
