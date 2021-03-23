@@ -32,9 +32,9 @@ export function Form({setCeps}) {
         let data = {};
         if(isChecked == false) {
             pCep = cep.toString();
-            data = await fetch(`${process.env.URL}/cep/cep/${pCep}`).then(response => response.json());
+            data = await fetch(`${process.env.URL}/cepApi/cep/${pCep}`).then(response => response.json());
         } else {
-            data = await fetch(`${process.env.URL}/cep/cep/${uf}/${cidade}/${logradouro}`).then(response => response.json());
+            data = await fetch(`${process.env.URL}/cepApi/cep/${uf}/${cidade}/${logradouro}`).then(response => response.json());
         }
         setCeps(data);
     }
