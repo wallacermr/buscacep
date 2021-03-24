@@ -2,8 +2,8 @@ package com.buscacep.cep.service;
 
 import com.buscacep.cep.dto.CepDTO;
 import com.buscacep.cep.entity.Cep;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface CepService {
 
@@ -11,7 +11,7 @@ public interface CepService {
 
     CepDTO getCep(String cep);
 
-    List<CepDTO> getListCep(String uf, String cidade, String logradouro);
+    Page<Cep> getListCep(String uf, String cidade, String logradouro, Pageable pageable);
 
     Cep save(Cep cep);
 }

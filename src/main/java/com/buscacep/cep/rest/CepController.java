@@ -6,12 +6,11 @@ import com.buscacep.cep.enums.UnidadeFederativa;
 import com.buscacep.cep.mapper.CepMapper;
 import com.buscacep.cep.service.CepService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,9 +43,10 @@ public class CepController {
     }
 
     @GetMapping(path = "cep/{uf}/{cidade}/{logradouro}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<CepDTO> getCeps(@PathVariable("uf") String uf,
+    public Page<Cep> getCeps(@PathVariable("uf") String uf,
                                 @PathVariable("cidade") String cidade,
-                                @PathVariable("logradouro") String logradouro) {
-        return service.getListCep(uf, cidade, logradouro);
+                                @PathVariable("logradouro") String logradouro,
+                                Pageable pageable) {
+        return service.getListCep(uf, cidade, logradouro, pageable);
     }
 }
