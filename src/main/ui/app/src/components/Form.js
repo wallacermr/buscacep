@@ -4,10 +4,10 @@ import { ForgotForm } from './ForgotForm';
 import { useState, useEffect, useContext } from 'react';
 import { FormContext } from '../contexts/FormContext';
 
-export function Form({setCeps}) {
-    const { uf, setUf, cidade, setCidade, logradouro, setLogradouro } = useContext(FormContext);
-    const[cep, setCep] = useState("");
-    const[isChecked, setIsChecked] = useState(false);
+export function Form() {
+    const {uf, setUf, cidade, setCidade, logradouro, setLogradouro, page, setTotalPages, size, setCeps} = useContext(FormContext);
+    const [cep, setCep]  = useState("");
+    const [isChecked, setIsChecked] = useState(false);
     
     /*
     * Como o nextjs usa um servidor para renderizar esta parte do código
@@ -34,9 +34,10 @@ export function Form({setCeps}) {
             pCep = cep.toString();
             data = await fetch(`${process.env.URL}/cepApi/cep/${pCep}`).then(response => response.json());
         } else {
-            data = await fetch(`${process.env.URL}/cepApi/cep/${uf}/${cidade}/${logradouro}`).then(response => response.json());
+            data = await fetch(`${process.env.URL}/cepApi/cep/${uf}/${cidade}/${logradouro}?page=${page}&size=${size}`).then(response => response.json());
+            setTotalPages(data.totalPages);
         }
-        setCeps(data);
+        setCeps(data.content);
     }
 
     const cleanFields = () => {

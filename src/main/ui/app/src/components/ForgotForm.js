@@ -7,18 +7,19 @@ export function ForgotForm() {
     const[items, setItems] = useState([]);
     
 
-    useEffect(() => {
-        async function getUfList() {
-            const data = await fetch(`${process.env.URL}/cepApi/uf`).then(response => response.json());
-            const listaUnidadesFederativas = [new UnidadeFederativa("", "", Math.random())];
-
-            data.forEach(element => {
-                listaUnidadesFederativas.push(new UnidadeFederativa(element.id, element.nome, element.codigoUf));
-            });
-            setItems(listaUnidadesFederativas);
-        }
+    useEffect(() => {        
         getUfList();
     }, []);
+
+    async function getUfList() {
+        const data = await fetch(`${process.env.URL}/cepApi/uf`).then(response => response.json());
+        const listaUnidadesFederativas = [new UnidadeFederativa("", "", Math.random())];
+
+        data.forEach(element => {
+            listaUnidadesFederativas.push(new UnidadeFederativa(element.id, element.nome, element.codigoUf));
+        });
+        setItems(listaUnidadesFederativas);
+    }
 
     return (
         <div className="row">
