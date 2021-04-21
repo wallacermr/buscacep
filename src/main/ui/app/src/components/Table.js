@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import { FormContext } from '../contexts/FormContext';
 
 export function Table() {
-    const{uf, setUf, cidade, setCidade, logradouro, setLogradouro, size, page, setPage, totalPages, ceps, setCeps} = useContext(FormContext);    
+    const{uf, cidade, logradouro, size, totalPages, ceps, setCeps} = useContext(FormContext);
     const [isShowPaginateDiv, setIsShowPaginateDiv] = useState(false);
     
     function handlePageClick({ selected: selectedPage }) {
