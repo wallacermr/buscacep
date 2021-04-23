@@ -1,6 +1,7 @@
 import {useState, useEffect, useContext} from 'react';
 import ReactPaginate from 'react-paginate';
 import { FormContext } from '../contexts/FormContext';
+import styles from '../styles/components/Table.module.css';
 
 export function Table() {
     const{uf, cidade, logradouro, size, totalPages, ceps, setCeps} = useContext(FormContext);
@@ -59,7 +60,7 @@ export function Table() {
                 </table>                
             </div>
             {isShowPaginateDiv && (
-                <div>
+                <div className={styles.paginationDiv}>
                     <ReactPaginate
                         previousLabel={'anterior'}
                         nextLabel={'próximo'}
