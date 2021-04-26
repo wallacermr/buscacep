@@ -4,18 +4,11 @@ import { FormContext } from '../contexts/FormContext';
 import styles from '../styles/components/Table.module.css';
 
 export function Table() {
-    const{uf, cidade, logradouro, size, totalPages, ceps, setCeps} = useContext(FormContext);
-    const [isShowPaginateDiv, setIsShowPaginateDiv] = useState(false);
+    const{uf, cidade, logradouro, size, totalPages, data, isCepList} = useContext(FormContext);
     
     function handlePageClick({ selected: selectedPage }) {
         getCepsPageable(selectedPage);
     }
-
-    useEffect(() => {
-        if(ceps.length > 0) {
-            setIsShowPaginateDiv(true);
-        }
-    });
 
     async function getCepsPageable(pageNumber) {
         const data = await fetch(`${process.env.URL}/cepApi/cep/${uf}/${cidade}/${logradouro}?page=${pageNumber}&size=${size}`).then(response => response.json());
@@ -41,7 +34,21 @@ export function Table() {
                         </tr>
                     </thead>
                     <tbody>
-                        {ceps.map((cep) => {
+                        {isCepList == false && (
+                            <tr>
+                                <td>{data.cep}</td>
+                                <td>{data.logradouro}</td>
+                                <td>{data.complemento}</td>
+                                <td>{data.bairro}</td>
+                                <td>{data.localidade}</td>
+                                <td>{data.uf}</td>
+                                <td>{data.ibge}</td>
+                                <td>{data.gia}</td>
+                                <td>{data.ddd}</td>
+                                <td>{data.siafi}</td>
+                            </tr>
+                        )}
+                        {/* {ceps.map((cep) => {
                             return (
                             <tr key={cep.cep}>
                                 <td>{cep.cep}</td>
@@ -55,11 +62,11 @@ export function Table() {
                                 <td>{cep.ddd}</td>
                                 <td>{cep.siafi}</td>
                             </tr>);
-                        })}                    
+                        })}                     */}
                     </tbody>
                 </table>                
             </div>
-            {isShowPaginateDiv && (
+            {isCepList && (
                 <div className={styles.paginationDiv}>
                     <ReactPaginate
                         previousLabel={'anterior'}

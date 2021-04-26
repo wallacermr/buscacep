@@ -9,8 +9,10 @@ export function FormProvider({children}) {
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [size] = useState(10);
-    const [ceps, setCeps] = useState([]);
-    
+    const [data, setData] = useState({});
+    const [dataList, setDataList] = useState([]);
+    const [isCepList, setIsCepList] = useState(false);
+
     return(
         <FormContext.Provider value={{
             uf,
@@ -24,8 +26,12 @@ export function FormProvider({children}) {
             totalPages,
             setTotalPages,
             size,
-            ceps,
-            setCeps
+            data,
+            setData,
+            dataList,
+            setDataList,
+            isCepList,
+            setIsCepList
         }}>
             {children}
         </FormContext.Provider>

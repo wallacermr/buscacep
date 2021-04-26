@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 import { FormContext } from '../contexts/FormContext';
 
 export function Form() {
-    const {uf, setUf, cidade, setCidade, logradouro, setLogradouro, page, setTotalPages, size, setCeps} = useContext(FormContext);
+    const {uf, setUf, cidade, setCidade, logradouro, setLogradouro, page, setTotalPages, size, setData, setDataList, setIsCepList} = useContext(FormContext);
     const [cep, setCep]  = useState("");
     const [isChecked, setIsChecked] = useState(false);
     
@@ -28,13 +28,15 @@ export function Form() {
     });
 
     const enviar = async () => {
-        let pCep = "";
         let data = {};
         if(isChecked == false) {
-            pCep = cep.toString();
-            data = await fetch(`${process.env.URL}/cepApi/cep/${pCep}`).then(response => response.json());
+            let result = await fetch(`${process.env.URL}/cepApi/cep/${cep.toString()}`).then(response => response.json());
+            console.log("clicou no botao enviar do componente Form.js:");
+            console.log(result);
+            setData(result);
+            setIsCepList(isChecked);
         } else {
-            data = await fetch(`${process.env.URL}/cepApi/cep/${uf}/${cidade}/${logradouro}?page=${page}&size=${size}`).then(response => response.json());
+            data = await fetch(`${process.env.URL}/cepApi/cep?uf=${uf}&&cidade=${cidade}&&logradouro=${logradouro}?page=${page}&size=${size}`).then(response => response.json());
             setTotalPages(data.totalPages);
         }
         setCeps(data.content);
