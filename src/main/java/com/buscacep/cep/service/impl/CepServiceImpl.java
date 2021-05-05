@@ -17,8 +17,8 @@ import java.util.List;
 @Service
 public class CepServiceImpl implements CepService {
 
-    private CepClient cepClient;
-    private CepRepository cepRepository;
+    private final CepClient cepClient;
+    private final CepRepository cepRepository;
 
     @Autowired
     public CepServiceImpl(CepClient cepClient, CepRepository cepRepository) {
@@ -32,7 +32,13 @@ public class CepServiceImpl implements CepService {
     }
 
     public CepDTO getCep(String cep) {
-        return cepClient.getCep(cep);
+        Cep result = findByCep(cep);
+        if (result == null) {
+            CepDTO dto = cepClient.getCep(cep);
+            Cep entity = CepMapper.INSTANCE.dtoToEntity(dto);
+            return CepMapper.INSTANCE.entityToDTO(cepRepository.save(entity));
+        }
+        return CepMapper.INSTANCE.entityToDTO(result);
     }
 
     @Transactional
@@ -40,7 +46,7 @@ public class CepServiceImpl implements CepService {
         List<Cep> resultado =
                 cepRepository.findAllByUfCidadeLogradouro(uf.toLowerCase(), cidade.toLowerCase(), logradouro.toLowerCase());
 
-        if(resultado == null || resultado.isEmpty()) {
+        if (resultado == null || resultado.isEmpty()) {
             List<CepDTO> listCeps = cepClient.getListCeps(uf, cidade, logradouro);
             listCeps.forEach(dto -> {
                 Cep cep = CepMapper.INSTANCE.dtoToEntity(dto);

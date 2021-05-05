@@ -7,6 +7,7 @@ public class CepDTO implements Serializable {
 
     private static final long serialVersionUID = -465754082609594225L;
 
+    private Long id;
     private String cep;
     private String logradouro;
     private String complemento;
@@ -16,6 +17,14 @@ public class CepDTO implements Serializable {
     private String ibge;
     private String gia;
     private String ddd;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCep() {
         return cep;
@@ -91,7 +100,7 @@ public class CepDTO implements Serializable {
 
 	@Override
 	public int hashCode() {		
-		return Objects.hash(bairro, cep, logradouro, uf);
+		return Objects.hash(id, bairro, cep, logradouro, uf);
 	}
 
 	@Override
@@ -106,6 +115,7 @@ public class CepDTO implements Serializable {
 		return Objects.equals(this.bairro, other.bairro) &&
 				Objects.equals(this.logradouro, other.logradouro) &&
 				Objects.equals(this.cep, other.cep) &&
-				Objects.equals(this.uf, other.uf);
+				Objects.equals(this.uf, other.uf) &&
+                Objects.equals(this.id, other.id);
 	}
 }

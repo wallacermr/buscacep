@@ -6,11 +6,9 @@ export function FormProvider({children}) {
     const [uf, setUf] = useState("");
     const [cidade, setCidade] = useState("");
     const [logradouro, setLogradouro] = useState("");
-    const [page, setPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
-    const [size] = useState(10);
-    const [ceps, setCeps] = useState([]);
-    
+    const [isForgotForm, setIsForgotForm] = useState(false);
+    const [payload, setPayload] = useState({});
+
     return(
         <FormContext.Provider value={{
             uf,
@@ -19,13 +17,10 @@ export function FormProvider({children}) {
             setCidade,
             logradouro,
             setLogradouro,
-            page,
-            setPage,
-            totalPages,
-            setTotalPages,
-            size,
-            ceps,
-            setCeps
+            isForgotForm,
+            setIsForgotForm,
+            payload,
+            setPayload
         }}>
             {children}
         </FormContext.Provider>

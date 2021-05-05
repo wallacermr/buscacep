@@ -1,24 +1,54 @@
 import {useState, useEffect, useContext} from 'react';
 import ReactPaginate from 'react-paginate';
 import { FormContext } from '../contexts/FormContext';
+import { Cep } from '../class/Cep';
+import styles from '../styles/components/Table.module.css';
 
 export function Table() {
-    const{uf, setUf, cidade, setCidade, logradouro, setLogradouro, size, page, setPage, totalPages, ceps, setCeps} = useContext(FormContext);    
-    const [isShowPaginateDiv, setIsShowPaginateDiv] = useState(false);
-    
-    function handlePageClick({ selected: selectedPage }) {
-        getCepsPageable(selectedPage);
-    }
+    const {uf, cidade, logradouro, isForgotForm, setIsForgotForm, payload, setPayload} = useContext(FormContext);
+    const [totalPages, setTotalPages] = useState();
+    const [cep, setCep] = useState({});
+    const [cepArray, setCepArray] = useState([]);    
 
     useEffect(() => {
-        if(ceps.length > 0) {
-            setIsShowPaginateDiv(true);
+        if(Object.keys(payload).length > 0) {
+            convertToCep();
+        } else {
+            setCep({});
+            setCepArray([]);
+            setIsForgotForm(false);
         }
-    });
+    }, [payload]);
+
+    async function handlePageClick({ selected: selectedPage }) {
+        const size = 10;
+        const data = await fetch(`${process.env.URL}/cepApi/cep?uf=${uf}&cidade=${cidade}&logradouro=${logradouro}&page=${selectedPage}&size=${size}`).then(response => response.json())
+        setPayload(data);
+    }
 
     async function getCepsPageable(pageNumber) {
-        const data = await fetch(`${process.env.URL}/cepApi/cep/${uf}/${cidade}/${logradouro}?page=${pageNumber}&size=${size}`).then(response => response.json());
-        setCeps(data.content)
+        const data = await fetch(`${process.env.URL}/cepApi/cep?uf=${uf}&cidade=${cidade}&logradouro=${logradouro}&page=${pageNumber}&size=${size}`).then(response => response.json())
+        setPayload(data);
+        setTotalPages(data.totalPages);
+    }
+
+    let insertArray = (obj) => {
+        let tempArray = [];
+        setTotalPages(obj.totalPages);
+        obj.content.map((c) => {
+            tempArray.push(new Cep(c.id, c.cep, c.logradouro, c.complemento, c.bairro, c.localidade, c.uf, c.ibge, c.gia, c.ddd));
+        });
+        setCepArray(tempArray);
+    }
+
+    let convertToCep = () => {
+        let obj = {};
+        if(isForgotForm) {
+            insertArray(payload);
+        } else {
+            obj = payload;
+            setCep(new Cep(obj.id, obj.cep, obj.logradouro, obj.complemento, obj.bairro, obj.localidade, obj.uf, obj.ibge, obj.gia, obj.ddd));
+        }
     }
 
     return(
@@ -40,9 +70,7 @@ export function Table() {
                         </tr>
                     </thead>
                     <tbody>
-                        {ceps.map((cep) => {
-                            return (
-                            <tr key={cep.cep}>
+                        {isForgotForm === false ? (<tr>
                                 <td>{cep.cep}</td>
                                 <td>{cep.logradouro}</td>
                                 <td>{cep.complemento}</td>
@@ -53,13 +81,27 @@ export function Table() {
                                 <td>{cep.gia}</td>
                                 <td>{cep.ddd}</td>
                                 <td>{cep.siafi}</td>
-                            </tr>);
-                        })}                    
+                            </tr>) : (
+                            cepArray.map((cep) => {
+                                return(<tr key={cep.cep}>
+                                    <td>{cep.cep}</td>
+                                    <td>{cep.logradouro}</td>
+                                    <td>{cep.complemento}</td>
+                                    <td>{cep.bairro}</td>
+                                    <td>{cep.localidade}</td>
+                                    <td>{cep.uf}</td>
+                                    <td>{cep.ibge}</td>
+                                    <td>{cep.gia}</td>
+                                    <td>{cep.ddd}</td>
+                                    <td>{cep.siafi}</td>
+                                </tr>);
+                            })
+                        )}
                     </tbody>
                 </table>                
             </div>
-            {isShowPaginateDiv && (
-                <div>
+            {isForgotForm && (
+                <div className={styles.paginationDiv}>
                     <ReactPaginate
                         previousLabel={'anterior'}
                         nextLabel={'próximo'}

@@ -13,7 +13,7 @@ export function ForgotForm() {
 
     async function getUfList() {
         const data = await fetch(`${process.env.URL}/cepApi/uf`).then(response => response.json());
-        const listaUnidadesFederativas = [new UnidadeFederativa("", "", Math.random())];
+        const listaUnidadesFederativas = [new UnidadeFederativa("", "Selecione", Math.random())];
 
         data.forEach(element => {
             listaUnidadesFederativas.push(new UnidadeFederativa(element.id, element.nome, element.codigoUf));
