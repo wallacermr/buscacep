@@ -2,11 +2,11 @@
 Simples aplicação para buscar cep ou ceps fazendo uma requisição em viacep.com.br<br />
 Essa aplicação foi construída com React, mais especifícamente com um framework chamado Nextjs que é baseado no Rect.
 
-<strong>Requisitos</strong>
-Nodejs
-Instalar o yarn(Caso tenha o npm instalado o yarn vem integrado).
-maven ultima versão <a href="https://maven.apache.org/">aqui</a>
-jdk 11
+<strong>Requisitos</strong><br />
+Nodejs<br />
+Instalar o yarn(Caso tenha o npm instalado o yarn vem integrado).<br />
+maven ultima versão <a href="https://maven.apache.org/">aqui</a><br />
+jdk 11<br />
 por enquanto os dados estão sendo salvos em memoria h2.
 
 <strong>#FronEnd</strong><br />
