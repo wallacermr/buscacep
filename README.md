@@ -2,15 +2,18 @@
 Simples aplicação para buscar cep ou ceps fazendo uma requisição em viacep.com.br<br />
 Essa aplicação foi construída com React, mais especifícamente com um framework chamado Nextjs que é baseado no Rect.
 
-#BackEnd<br />
-Linguagem: Java 11<br />
-Por enquanto, o cep após ser buscado no serviço é salvo o dado retornado no banco em memória H2.
+<strong>Requisitos</strong>
+Nodejs
+Instalar o yarn(Caso tenha o npm instalado o yarn vem integrado).
+maven ultima versão <a href="https://maven.apache.org/">aqui</a>
+jdk 11
+por enquanto os dados estão sendo salvos em memoria h2.
 
 <strong>#FronEnd</strong><br />
-Framework NextJs que é baseado no React<br />
+O front foi desenvolvido usando o Framework NextJs que é baseado no React<br />
+mais pelo fato de otimizar as rotas.
 
-...<br />
-
-
-rodar o comando: yarn add react-paginate<br />
-para o componente ReactPaginate e suas props de paginação.<br />
+Após clonar o projeto.<br />
+Entrar na pasta do projeto e executar o comando 'mvn clean install -DskipAllTests' para gerar as classes converters usando o mapstruct.<br />
+Depois subir o projeto no back. Após isso abrir editor de texto como o visual studio code, abrir o terminal e digitar 'yarn run dev' para compilar.<br />
+entrar em 'localhost:3000'
